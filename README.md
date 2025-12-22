@@ -165,7 +165,7 @@ Replace the `#` in the download buttons with your actual App Store URL:
 
 ### Update Contact Email
 
-Replace `support@insyncapp.com` throughout the site with your actual support email.
+Replace `support@insync-live.app` throughout the site with your actual support email.
 
 ### Bug Report Form Setup
 
@@ -227,7 +227,7 @@ const response = await fetch('YOUR_API_ENDPOINT', {
 
 - [ ] Replace screenshot placeholders with actual app screenshots
 - [ ] Add your real App Store URL
-- [ ] Update support@insyncapp.com to your real email
+- [ ] Update support@insync-live.app to your real email
 - [ ] Set up bug report form backend (Formspree, EmailJS, or custom)
 - [ ] Test on mobile devices
 - [ ] Verify all links work
@@ -276,4 +276,4 @@ For questions about the landing page:
 
 For app-related questions:
 - Visit the bug report page
-- Email support@insyncapp.com
+- Email support@insync-live.app
