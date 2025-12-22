@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report bugs and issues with InSync">
+    <title>Report a Bug - InSync</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .bug-report-page {
+            padding: calc(80px + var(--spacing-md)) 0 var(--spacing-xl) 0;
+        }
+
+        .report-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .report-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .report-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            background: var(--glass-background);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            backdrop-filter: blur(20px);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-group .label-optional {
+            color: var(--text-tertiary);
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gradient-pink);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 3px rgba(255, 83, 192, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-hint {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-top: var(--spacing-xs);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-cyan));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-sm);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 83, 192, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: var(--spacing-md);
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(96, 255, 202, 0.1);
+            border: 1px solid var(--gradient-cyan);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            color: var(--gradient-cyan);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(255, 83, 192, 0.1);
+            border: 1px solid var(--gradient-pink);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            color: var(--gradient-pink);
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .info-box {
+            background: rgba(96, 255, 202, 0.05);
+            border-left: 3px solid var(--gradient-cyan);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none;">
+                        <span class="logo-gradient">InSync</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#download">Download</a>
+                    <a href="privacy-policy.html">Privacy</a>
+                    <a href="bug-report.html">Report Bug</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bug Report Form -->
+    <section class="bug-report-page">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Home
+            </a>
+
+            <div class="report-container">
+                <div class="report-header">
+                    <h1>Report a <span class="gradient-text">Bug</span></h1>
+                    <p>Help us improve InSync by reporting issues you encounter</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>Before submitting:</strong> Please check if the issue is already known or if restarting the app resolves it. Include as much detail as possible to help us fix the problem quickly.</p>
+                </div>
+
+                <div class="form-container">
+                    <div id="successMessage" class="success-message">
+                        <strong>✓ Report submitted successfully!</strong>
+                        <p>Thank you for helping us improve InSync. We'll investigate this issue.</p>
+                    </div>
+
+                    <div id="errorMessage" class="error-message">
+                        <strong>× Error submitting report</strong>
+                        <p>Please try again or email us directly at support@insyncapp.com</p>
+                    </div>
+
+                    <form id="bugReportForm">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="name">
+                                Your Name
+                                <span class="label-optional">(optional)</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="John Doe"
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email">
+                                Email Address
+                                <span class="label-optional">(optional, for follow-up)</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="your.email@example.com"
+                            >
+                        </div>
+
+                        <!-- Bug Category -->
+                        <div class="form-group">
+                            <label for="category">Bug Category *</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category...</option>
+                                <option value="crash">App Crash</option>
+                                <option value="login">Login/Authentication</option>
+                                <option value="spotify">Spotify Connection</option>
+                                <option value="map">Map/Location</option>
+                                <option value="messaging">Direct Messages</option>
+                                <option value="groups">Groups/Chat Rooms</option>
+                                <option value="notifications">Notifications</option>
+                                <option value="profile">Profile/Settings</option>
+                                <option value="performance">Performance/Speed</option>
+                                <option value="ui">UI/Design Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Device Info -->
+                        <div class="form-group">
+                            <label for="device">Device Information *</label>
+                            <input
+                                type="text"
+                                id="device"
+                                name="device"
+                                placeholder="iPhone 14 Pro, iOS 17.2"
+                                required
+                            >
+                            <p class="form-hint">e.g., "iPhone 14 Pro, iOS 17.2" or "iPad Air, iOS 16.5"</p>
+                        </div>
+
+                        <!-- App Version -->
+                        <div class="form-group">
+                            <label for="version">
+                                App Version
+                                <span class="label-optional">(optional)</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="version"
+                                name="version"
+                                placeholder="1.0.0"
+                            >
+                            <p class="form-hint">Found in Settings → About</p>
+                        </div>
+
+                        <!-- Bug Description -->
+                        <div class="form-group">
+                            <label for="description">Bug Description *</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Describe what happened, what you expected to happen, and steps to reproduce the bug..."
+                                required
+                            ></textarea>
+                            <p class="form-hint">Please be as detailed as possible. Include steps to reproduce the bug.</p>
+                        </div>
+
+                        <!-- Steps to Reproduce -->
+                        <div class="form-group">
+                            <label for="steps">Steps to Reproduce *</label>
+                            <textarea
+                                id="steps"
+                                name="steps"
+                                placeholder="1. Open the app&#10;2. Navigate to...&#10;3. Tap on...&#10;4. Bug occurs"
+                                required
+                            ></textarea>
+                            <p class="form-hint">List the exact steps needed to trigger the bug</p>
+                        </div>
+
+                        <!-- Frequency -->
+                        <div class="form-group">
+                            <label for="frequency">How Often Does This Occur? *</label>
+                            <select id="frequency" name="frequency" required>
+                                <option value="">Select frequency...</option>
+                                <option value="always">Every time</option>
+                                <option value="often">Often (more than 50%)</option>
+                                <option value="sometimes">Sometimes (less than 50%)</option>
+                                <option value="once">Only happened once</option>
+                            </select>
+                        </div>
+
+                        <!-- Additional Info -->
+                        <div class="form-group">
+                            <label for="additional">
+                                Additional Information
+                                <span class="label-optional">(optional)</span>
+                            </label>
+                            <textarea
+                                id="additional"
+                                name="additional"
+                                placeholder="Any other details, screenshots descriptions, or context that might help..."
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Submit Bug Report
+                        </button>
+                    </form>
+                </div>
+
+                <div style="text-align: center; margin-top: var(--spacing-md);">
+                    <p style="color: var(--text-tertiary); font-size: 0.9rem;">
+                        Need immediate help? Email us at
+                        <a href="mailto:support@insyncapp.com" style="color: var(--gradient-pink);">support@insyncapp.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="logo-gradient">InSync</h3>
+                    <p>Connect through music</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#download">Download</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <a href="bug-report.html">Report a Bug</a>
+                        <a href="mailto:support@insyncapp.com">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 InSync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Bug report form handling
+        document.getElementById('bugReportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // Hide previous messages
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                category: document.getElementById('category').value,
+                device: document.getElementById('device').value,
+                version: document.getElementById('version').value,
+                description: document.getElementById('description').value,
+                steps: document.getElementById('steps').value,
+                frequency: document.getElementById('frequency').value,
+                additional: document.getElementById('additional').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // TODO: Replace with your actual bug report submission endpoint
+            // Options:
+            // 1. Use Formspree: https://formspree.io (easiest)
+            // 2. Use your backend API
+            // 3. Use EmailJS: https://www.emailjs.com
+
+            // Simulate submission for now
+            setTimeout(() => {
+                // For now, show success (you'll replace this with actual API call)
+                successMessage.classList.add('show');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Bug Report';
+
+                // Reset form
+                document.getElementById('bugReportForm').reset();
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Log to console (remove in production)
+                console.log('Bug Report Submitted:', formData);
+
+                // In production, you would do something like:
+                /*
+                try {
+                    const response = await fetch('YOUR_API_ENDPOINT', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        successMessage.classList.add('show');
+                        document.getElementById('bugReportForm').reset();
+                    } else {
+                        errorMessage.classList.add('show');
+                    }
+                } catch (error) {
+                    errorMessage.classList.add('show');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Bug Report';
+                }
+                */
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,816 @@
+/*
+ * InSync Landing Page Styles
+ * Matches the app's dark glassmorphic design with gradient accents
+ */
+
+/* ==================== CSS Variables ==================== */
+:root {
+    /* Colors from app - matching DesignSystem.swift */
+    --app-background: #0A0118;
+    --glass-background: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --text-tertiary: rgba(255, 255, 255, 0.4);
+
+    /* Gradient colors */
+    --gradient-pink: #FF53C0;
+    --gradient-cyan: #60FFCA;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+
+    /* Border radius */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 24px;
+
+    /* Container */
+    --container-max-width: 1200px;
+}
+
+/* ==================== Reset & Base ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--app-background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==================== Container ==================== */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* ==================== Navigation ==================== */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: var(--spacing-sm) 0;
+    background: rgba(10, 1, 24, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo-gradient {
+    background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* ==================== Hero Section ==================== */
+.hero {
+    padding: calc(80px + var(--spacing-xl)) 0 var(--spacing-xl) 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.hero-text {
+    z-index: 10;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-md);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    max-width: 500px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-cyan));
+    color: white;
+    box-shadow: 0 10px 30px rgba(255, 83, 192, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(255, 83, 192, 0.4);
+}
+
+.btn-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+.apple-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.version-info {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+}
+
+/* Hero Image / Phone Mockup */
+.hero-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-mockup{
+  width: 300px;
+  border-radius: 40px;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  padding: 12px;          /* bezel thickness */
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.phone-screen{
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;       /* the clip happens here */
+  background: #000;
+}
+
+.phone-screen img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;    /* or 'cover' if you want fill+crop */
+}
+
+/* ===== Apply cyber/glass effects to HERO phone ===== */
+.phone-mockup{
+  position: relative;
+  overflow: hidden; /* needed for glow/sweep clipping */
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* neon edge glow */
+.phone-mockup::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 42px; /* slightly larger than 40px */
+  background: linear-gradient(135deg,
+    rgba(255,83,192,.55),
+    rgba(96,255,202,.35),
+    rgba(255,83,192,.35)
+  );
+  opacity: .35;
+  filter: blur(18px);
+  pointer-events:none;
+}
+
+/* holographic sweep */
+.phone-mockup::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 40px;
+  background: linear-gradient(120deg,
+    transparent 0%,
+    rgba(255,255,255,.12) 35%,
+    transparent 60%
+  );
+  transform: translateX(-60%) translateY(-10%) rotate(8deg);
+  opacity: 0;
+  transition: opacity .25s ease, transform .6s ease;
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+
+/* subtle scan/grain on the hero screen too */
+.phone-screen{
+  position: relative;
+}
+
+.phone-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,83,192,.10), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(96,255,202,.10), transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.04) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: .22;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+}
+
+/* optional: trigger sweep on hover like gallery */
+.phone-mockup:hover::after{
+  opacity: 1;
+  transform: translateX(45%) translateY(5%) rotate(8deg);
+}
+
+.screenshot-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(255, 83, 192, 0.1), rgba(96, 255, 202, 0.1));
+    border: 2px dashed var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.screenshot-placeholder p {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.screenshot-placeholder span {
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+    font-family: 'Courier New', monospace;
+}
+
+.screenshot-placeholder.small {
+    height: 200px;
+    border-radius: var(--radius-md);
+}
+
+.screenshot-placeholder.gallery {
+    height: 500px;
+    border-radius: var(--radius-md);
+}
+
+/* Gradient Orbs for Visual Effect */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--gradient-pink);
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--gradient-cyan);
+    bottom: -50px;
+    left: -50px;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+}
+
+/* ==================== Features Section ==================== */
+.features {
+    padding: var(--spacing-xl) 0;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.feature-card {
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 83, 192, 0.3);
+    box-shadow: 0 20px 40px rgba(255, 83, 192, 0.1);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: var(--spacing-sm);
+    color: var(--gradient-pink);
+}
+
+.feature-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Spotify feature icon override for branding compliance */
+.feature-icon.spotify-feature {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.feature-icon.spotify-feature svg {
+    width: 80px;
+    height: 80px;
+    min-width: 70px;
+    filter: drop-shadow(0 4px 12px rgba(29, 185, 84, 0.3));
+}
+
+.feature-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.feature-content p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-screenshot {
+    margin-top: var(--spacing-md);
+}
+
+/* ==================== Gallery Section ==================== */
+.gallery {
+    padding: var(--spacing-xl) 0;
+}
+
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+/* ===== Cyber / Glass Gallery ===== */
+.cyber-gallery{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.cyber-card{
+  margin: 0;
+  transform-style: preserve-3d;
+  transition: transform .25s ease, filter .25s ease;
+}
+
+.cyber-phone{
+  position: relative;
+  border-radius: 30px;
+  padding: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  overflow: hidden;
+}
+
+/* neon edge glow */
+.cyber-phone::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 32px;
+  background: linear-gradient(135deg,
+    rgba(255,83,192,.55),
+    rgba(96,255,202,.35),
+    rgba(255,83,192,.35)
+  );
+  opacity: .35;
+  filter: blur(18px);
+  pointer-events:none;
+}
+
+/* holographic sweep */
+.cyber-phone::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: linear-gradient(120deg,
+    transparent 0%,
+    rgba(255,255,255,.12) 35%,
+    transparent 60%
+  );
+  transform: translateX(-60%) translateY(-10%) rotate(8deg);
+  opacity: 0;
+  transition: opacity .25s ease, transform .6s ease;
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+
+.cyber-screen{
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+/* subtle scan/grain */
+.cyber-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,83,192,.10), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(96,255,202,.10), transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.04) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: .22;
+  pointer-events:none;
+  mix-blend-mode: overlay;
+}
+
+.cyber-img{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1320 / 2868;  /* your screenshot ratio */
+  display: block;
+  object-fit: contain;        /* never stretch */
+  background: #000;
+}
+
+.cyber-card figcaption{
+  margin-top: .85rem;
+  text-align: center;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: rgba(255,255,255,.72);
+}
+
+.cyber-card:hover{
+  transform: translateY(-10px) scale(1.02);
+  filter: drop-shadow(0 18px 40px rgba(255,83,192,.12))
+          drop-shadow(0 18px 40px rgba(96,255,202,.10));
+}
+
+.cyber-card:hover .cyber-phone::after{
+  opacity: 1;
+  transform: translateX(45%) translateY(5%) rotate(8deg);
+}
+
+/* responsive */
+@media (max-width: 968px){
+  .cyber-gallery{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .cyber-gallery{ grid-template-columns: 1fr; }
+}
+
+/* ==================== Download CTA Section ==================== */
+.download-cta{
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--spacing-xl) * 1.3) 0;   /* more top/bottom space */
+}
+
+/* full-width background glow */
+.download-cta::before{
+  content: "";
+  position: absolute;
+  inset: -35%; /* extend beyond section so it feels big */
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 83, 192, 0.22), transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(96, 255, 202, 0.16), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* center the panel within the section */
+.download-cta .container{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-content{
+  width: min(980px, 100%);
+  text-align: center;          /* center everything */
+  padding: 3.25rem 3rem;       /* “more background” top/bottom */
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.download-cta::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  opacity: .15;
+  pointer-events:none;
+  z-index: 0;
+}
+
+
+.cta-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-sm);
+}
+
+.cta-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ==================== Footer ==================== */
+.footer {
+    background: var(--glass-background);
+    border-top: 1px solid var(--glass-border);
+    padding: var(--spacing-lg) 0 var(--spacing-md) 0;
+    margin-top: var(--spacing-xl);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-brand h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.footer-brand p {
+    color: var(--text-secondary);
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.footer-column h4 {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1rem;
+}
+
+.footer-column a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--spacing-xs);
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--text-primary);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-tertiary);
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 968px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+
+    .phone-mockup {
+        width: 250px;
+        height: 500px;
+    }
+
+    .nav-links {
+        gap: var(--spacing-sm);
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+
+    .phone-mockup {
+        width: 200px;
+        height: 400px;
+    }
+
+    .btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== Utilities ==================== */
+.glass-card {
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(20px);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
