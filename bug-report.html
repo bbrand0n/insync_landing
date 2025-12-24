@@ -332,8 +332,8 @@
             };
 
             try {
-                // Submit to serverless function
-                const response = await fetch('/.netlify/functions/submit-bug', {
+                // Submit to Vercel serverless function
+                const response = await fetch('/api/submit-bug', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -44,5 +44,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/bug-report",
+      "destination": "/bug-report.html"
+    }
   ]
 }
