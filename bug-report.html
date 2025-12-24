@@ -3,262 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report bugs and help us improve InSync. Your feedback makes InSync better for everyone.">
     <title>Report a Bug - InSync</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="images/insync_icon.png">
+    <link rel="apple-touch-icon" href="images/insync_icon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.insync-live.app/bug-report.html">
+    <meta property="og:title" content="Report a Bug - InSync">
+    <meta property="og:description" content="Report bugs and help us improve InSync. Your feedback makes InSync better for everyone.">
+    <meta property="og:image" content="https://www.insync-live.app/images/insync_icon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.insync-live.app/bug-report.html">
+    <meta property="twitter:title" content="Report a Bug - InSync">
+    <meta property="twitter:description" content="Report bugs and help us improve InSync. Your feedback makes InSync better for everyone.">
+    <meta property="twitter:image" content="https://www.insync-live.app/images/insync_icon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .bug-report-page {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: var(--spacing-lg) var(--spacing-md);
+            position: relative;
         }
 
-        .container {
-            max-width: 600px;
+        .bug-report-container {
+            max-width: 700px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            backdrop-filter: blur(24px) saturate(180%);
+            box-shadow:
+                0 40px 120px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 80px rgba(255, 83, 192, 0.15);
+            position: relative;
+            overflow: hidden;
+            animation: fade-in-up 0.6s ease-out both;
         }
 
-        .header {
+        .bug-report-container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg,
+                var(--gradient-pink),
+                var(--gradient-purple),
+                var(--gradient-cyan),
+                var(--gradient-pink));
+            background-size: 400% 400%;
+            opacity: 0.12;
+            filter: blur(12px);
+            animation: gradient-shift 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .bug-header {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 16px;
+            margin-bottom: 2.5rem;
         }
 
         .bug-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
         }
 
-        form {
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bug-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--gradient-pink), var(--gradient-purple), var(--gradient-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bug-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .bug-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 1.5rem;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
-        label {
+        .form-group label {
             font-weight: 600;
-            color: #333;
-            font-size: 14px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
 
-        input, textarea, select {
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
+        .required {
+            color: var(--gradient-pink);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
             font-family: inherit;
-            transition: border-color 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        input:focus, textarea:focus, select:focus {
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--gradient-pink);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(255, 83, 192, 0.1);
         }
 
-        textarea {
+        .form-group textarea {
             min-height: 120px;
             resize: vertical;
         }
 
-        .required {
-            color: #e74c3c;
-        }
-
-        button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
+        .form-group select {
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .success-message, .error-message {
-            padding: 16px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #c3e6cb;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #f5c6cb;
-        }
-
-        .success-message.show, .error-message.show {
-            display: block;
         }
 
         .device-info {
-            background: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #666;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .device-info strong {
+            color: var(--text-primary);
+        }
+
+        .submit-btn {
+            margin-top: 1rem;
+        }
+
+        .success-message,
+        .error-message {
+            padding: 1.25rem;
+            border-radius: var(--radius-sm);
+            margin-top: 1.5rem;
+            display: none;
+            animation: fade-in-up 0.3s ease-out both;
+        }
+
+        .success-message {
+            background: rgba(96, 255, 202, 0.15);
+            color: var(--gradient-cyan);
+            border: 1px solid rgba(96, 255, 202, 0.3);
+        }
+
+        .success-message a {
+            color: var(--gradient-cyan);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--gradient-orange);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .success-message.show,
+        .error-message.show {
+            display: block;
         }
 
         .back-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 2rem;
         }
 
         .back-link a {
-            color: #667eea;
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .back-link a:hover {
-            text-decoration: underline;
+            color: var(--gradient-pink);
+        }
+
+        @media (max-width: 640px) {
+            .bug-report-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .bug-header h1 {
+                font-size: 2rem;
+            }
+
+            .bug-icon {
+                font-size: 3rem;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 0.875rem 1rem;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="bug-icon">🐛</div>
-            <h1>Report a Bug</h1>
-            <p>Help us improve InSync by reporting issues you encounter</p>
-        </div>
+    <!-- SVG Gradients -->
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF53C0;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#B537F2;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#60FFCA;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
 
-        <form id="bugReportForm">
-            <!-- Email -->
-            <div class="form-group">
-                <label for="email">Your Email <span class="required">*</span></label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="your@email.com"
-                    autocomplete="email"
-                />
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-mesh"></div>
+        <div class="particles"></div>
+    </div>
+
+    <div class="bug-report-page">
+        <div class="bug-report-container">
+            <div class="bug-header">
+                <div class="bug-icon">🐛</div>
+                <h1>Report a Bug</h1>
+                <p>Help us improve InSync by reporting issues you encounter</p>
             </div>
 
-            <!-- Bug Title -->
-            <div class="form-group">
-                <label for="title">Bug Summary <span class="required">*</span></label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    placeholder="Brief description of the issue"
-                    maxlength="100"
-                />
+            <form id="bugReportForm" class="bug-form">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Your Email <span class="required">*</span></label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="your@email.com"
+                        autocomplete="email"
+                    />
+                </div>
+
+                <!-- Bug Title -->
+                <div class="form-group">
+                    <label for="title">Bug Summary <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        required
+                        placeholder="Brief description of the issue"
+                        maxlength="100"
+                    />
+                </div>
+
+                <!-- Bug Description -->
+                <div class="form-group">
+                    <label for="description">Detailed Description <span class="required">*</span></label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        required
+                        placeholder="What happened? What did you expect to happen?"
+                    ></textarea>
+                </div>
+
+                <!-- Steps to Reproduce -->
+                <div class="form-group">
+                    <label for="steps">Steps to Reproduce</label>
+                    <textarea
+                        id="steps"
+                        name="steps"
+                        placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."
+                    ></textarea>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <label for="priority">Priority <span class="required">*</span></label>
+                    <select id="priority" name="priority" required>
+                        <option value="low">Low - Minor issue</option>
+                        <option value="medium" selected>Medium - Affects functionality</option>
+                        <option value="high">High - Major issue</option>
+                        <option value="critical">Critical - App is broken</option>
+                    </select>
+                </div>
+
+                <!-- Device Info (Auto-populated) -->
+                <div class="form-group">
+                    <label>Device Information (Auto-detected)</label>
+                    <div class="device-info" id="deviceInfo">Detecting...</div>
+                </div>
+
+                <!-- Hidden fields for device data -->
+                <input type="hidden" id="userAgent" name="userAgent">
+                <input type="hidden" id="platform" name="platform">
+                <input type="hidden" id="screenSize" name="screenSize">
+                <input type="hidden" id="appVersion" name="appVersion">
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="btn btn-primary btn-large submit-btn">
+                    Submit Bug Report
+                </button>
+            </form>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                ✅ Bug report submitted successfully! We've created issue <a id="issueLink" href="#" target="_blank">#<span id="issueNumber"></span></a> to track this.
             </div>
 
-            <!-- Bug Description -->
-            <div class="form-group">
-                <label for="description">Detailed Description <span class="required">*</span></label>
-                <textarea
-                    id="description"
-                    name="description"
-                    required
-                    placeholder="What happened? What did you expect to happen?"
-                ></textarea>
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                ❌ <span id="errorText">Something went wrong. Please try again.</span>
             </div>
 
-            <!-- Steps to Reproduce -->
-            <div class="form-group">
-                <label for="steps">Steps to Reproduce</label>
-                <textarea
-                    id="steps"
-                    name="steps"
-                    placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."
-                ></textarea>
+            <div class="back-link">
+                <a href="index.html">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to InSync
+                </a>
             </div>
-
-            <!-- Priority -->
-            <div class="form-group">
-                <label for="priority">Priority <span class="required">*</span></label>
-                <select id="priority" name="priority" required>
-                    <option value="low">Low - Minor issue</option>
-                    <option value="medium" selected>Medium - Affects functionality</option>
-                    <option value="high">High - Major issue</option>
-                    <option value="critical">Critical - App is broken</option>
-                </select>
-            </div>
-
-            <!-- Device Info (Auto-populated) -->
-            <div class="form-group">
-                <label>Device Information (Auto-detected)</label>
-                <div class="device-info" id="deviceInfo">Detecting...</div>
-            </div>
-
-            <!-- Hidden fields for device data -->
-            <input type="hidden" id="userAgent" name="userAgent">
-            <input type="hidden" id="platform" name="platform">
-            <input type="hidden" id="screenSize" name="screenSize">
-            <input type="hidden" id="appVersion" name="appVersion">
-
-            <!-- Submit Button -->
-            <button type="submit" id="submitBtn">
-                Submit Bug Report
-            </button>
-        </form>
-
-        <!-- Success Message -->
-        <div class="success-message" id="successMessage">
-            ✅ Bug report submitted successfully! We've created issue <a id="issueLink" href="#" target="_blank">#<span id="issueNumber"></span></a> to track this.
-        </div>
-
-        <!-- Error Message -->
-        <div class="error-message" id="errorMessage">
-            ❌ <span id="errorText">Something went wrong. Please try again.</span>
-        </div>
-
-        <div class="back-link">
-            <a href="https://www.insync-live.app">← Back to InSync</a>
         </div>
     </div>
 
