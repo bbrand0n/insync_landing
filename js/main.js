@@ -72,65 +72,29 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Mobile navigation toggle (if needed in the future)
-    const createMobileNav = () => {
-        const navLinks = document.querySelector('.nav-links');
-        const isMobile = window.innerWidth < 768;
+    // Mobile navigation toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
 
-        if (isMobile && !document.querySelector('.mobile-menu-toggle')) {
-            // Add mobile menu toggle button
-            const toggleButton = document.createElement('button');
-            toggleButton.className = 'mobile-menu-toggle';
-            toggleButton.innerHTML = `
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            `;
-            toggleButton.style.cssText = `
-                display: block;
-                background: none;
-                border: none;
-                color: var(--text-primary);
-                cursor: pointer;
-                padding: 0.5rem;
-            `;
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-open');
+        });
 
-            toggleButton.addEventListener('click', () => {
-                navLinks.classList.toggle('mobile-open');
+        // Close mobile menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-open');
             });
+        });
 
-            document.querySelector('.nav-content').appendChild(toggleButton);
-
-            // Style mobile nav
-            navLinks.style.cssText = `
-                position: fixed;
-                top: 60px;
-                right: -100%;
-                background: rgba(10, 1, 24, 0.98);
-                backdrop-filter: blur(20px);
-                width: 250px;
-                height: calc(100vh - 60px);
-                flex-direction: column;
-                padding: 2rem;
-                transition: right 0.3s ease;
-                border-left: 1px solid var(--glass-border);
-            `;
-        }
-    };
-
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            createMobileNav();
-        }, 250);
-    });
-
-    // Initialize mobile nav
-    createMobileNav();
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-content')) {
+                navLinks.classList.remove('mobile-open');
+            }
+        });
+    }
 
     // Counter animation for stats
     const animateCounter = (element) => {
@@ -218,71 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Add CSS for mobile menu open state
-    const style = document.createElement('style');
-    style.textContent = `
-        .nav-links.mobile-open {
-            right: 0 !important;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block !important;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-menu-toggle {
-                display: none !important;
-            }
-            .nav-links {
-                position: static !important;
-                flex-direction: row !important;
-                width: auto !important;
-                height: auto !important;
-                padding: 0 !important;
-                border: none !important;
-            }
-        }
-
-        /* Smooth transitions for all interactive elements */
-        .btn, .nav-links a, .feature-card, .screenshot-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Loading spinner for buttons */
-        .btn.loading::after {
-            content: '';
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            display: inline-block;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Ensure orbs stay behind content */
-        .gradient-orb {
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Accessibility improvements */
-        .btn:focus-visible,
-        a:focus-visible {
-            outline: 2px solid var(--gradient-cyan);
-            outline-offset: 2px;
-        }
-    `;
-    document.head.appendChild(style);
 
     console.log('InSync Landing Page initialized ✓');
 });
