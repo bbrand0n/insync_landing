@@ -1,7 +1,12 @@
 # Netlify configuration file
 [build]
+  command = "cd netlify/functions && npm install"
   functions = "netlify/functions"
   publish = "."
+
+# Auto-install function dependencies
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
 
 # Redirect rules
 [[redirects]]
