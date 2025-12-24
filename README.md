@@ -265,7 +265,7 @@ Security headers are configured in `vercel.json`:
 
 ## 📄 License
 
-Copyright © 2024 InSync. All rights reserved.
+Copyright © 2024 Brandon Michael Gibbons. All rights reserved.
 
 ## 🆘 Support
 
