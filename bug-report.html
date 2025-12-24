@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Bug - InSync</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .bug-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message, .error-message {
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .success-message.show, .error-message.show {
+            display: block;
+        }
+
+        .device-info {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="bug-icon">🐛</div>
+            <h1>Report a Bug</h1>
+            <p>Help us improve InSync by reporting issues you encounter</p>
+        </div>
+
+        <form id="bugReportForm">
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Your Email <span class="required">*</span></label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="your@email.com"
+                    autocomplete="email"
+                />
+            </div>
+
+            <!-- Bug Title -->
+            <div class="form-group">
+                <label for="title">Bug Summary <span class="required">*</span></label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                    placeholder="Brief description of the issue"
+                    maxlength="100"
+                />
+            </div>
+
+            <!-- Bug Description -->
+            <div class="form-group">
+                <label for="description">Detailed Description <span class="required">*</span></label>
+                <textarea
+                    id="description"
+                    name="description"
+                    required
+                    placeholder="What happened? What did you expect to happen?"
+                ></textarea>
+            </div>
+
+            <!-- Steps to Reproduce -->
+            <div class="form-group">
+                <label for="steps">Steps to Reproduce</label>
+                <textarea
+                    id="steps"
+                    name="steps"
+                    placeholder="1. Go to...&#10;2. Click on...&#10;3. See error..."
+                ></textarea>
+            </div>
+
+            <!-- Priority -->
+            <div class="form-group">
+                <label for="priority">Priority <span class="required">*</span></label>
+                <select id="priority" name="priority" required>
+                    <option value="low">Low - Minor issue</option>
+                    <option value="medium" selected>Medium - Affects functionality</option>
+                    <option value="high">High - Major issue</option>
+                    <option value="critical">Critical - App is broken</option>
+                </select>
+            </div>
+
+            <!-- Device Info (Auto-populated) -->
+            <div class="form-group">
+                <label>Device Information (Auto-detected)</label>
+                <div class="device-info" id="deviceInfo">Detecting...</div>
+            </div>
+
+            <!-- Hidden fields for device data -->
+            <input type="hidden" id="userAgent" name="userAgent">
+            <input type="hidden" id="platform" name="platform">
+            <input type="hidden" id="screenSize" name="screenSize">
+            <input type="hidden" id="appVersion" name="appVersion">
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn">
+                Submit Bug Report
+            </button>
+        </form>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            ✅ Bug report submitted successfully! We've created issue <a id="issueLink" href="#" target="_blank">#<span id="issueNumber"></span></a> to track this.
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            ❌ <span id="errorText">Something went wrong. Please try again.</span>
+        </div>
+
+        <div class="back-link">
+            <a href="https://www.insync-live.app">← Back to InSync</a>
+        </div>
+    </div>
+
+    <script>
+        // Auto-populate device information
+        function getDeviceInfo() {
+            const info = {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                screenSize: `${window.screen.width}x${window.screen.height}`,
+                appVersion: navigator.appVersion,
+                language: navigator.language,
+                online: navigator.onLine
+            };
+
+            // Display summary
+            document.getElementById('deviceInfo').innerHTML = `
+                <strong>Platform:</strong> ${info.platform}<br>
+                <strong>Screen:</strong> ${info.screenSize}<br>
+                <strong>Browser:</strong> ${getBrowserInfo()}
+            `;
+
+            // Set hidden fields
+            document.getElementById('userAgent').value = info.userAgent;
+            document.getElementById('platform').value = info.platform;
+            document.getElementById('screenSize').value = info.screenSize;
+            document.getElementById('appVersion').value = info.appVersion;
+
+            return info;
+        }
+
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Chrome')) return 'Chrome';
+            if (ua.includes('Safari')) return 'Safari';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Edge')) return 'Edge';
+            return 'Unknown';
+        }
+
+        // Initialize
+        getDeviceInfo();
+
+        // Form submission
+        document.getElementById('bugReportForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+
+            // Hide messages
+            successMsg.classList.remove('show');
+            errorMsg.classList.remove('show');
+
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // Collect form data
+            const formData = {
+                email: document.getElementById('email').value,
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                steps: document.getElementById('steps').value,
+                priority: document.getElementById('priority').value,
+                userAgent: document.getElementById('userAgent').value,
+                platform: document.getElementById('platform').value,
+                screenSize: document.getElementById('screenSize').value,
+                appVersion: document.getElementById('appVersion').value
+            };
+
+            try {
+                // Submit to serverless function
+                const response = await fetch('/.netlify/functions/submit-bug', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Show success message
+                    document.getElementById('issueNumber').textContent = data.issueNumber;
+                    document.getElementById('issueLink').href = data.issueUrl;
+                    successMsg.classList.add('show');
+
+                    // Reset form
+                    document.getElementById('bugReportForm').reset();
+                    getDeviceInfo(); // Re-populate device info
+                } else {
+                    throw new Error(data.error || 'Failed to submit bug report');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('errorText').textContent = error.message;
+                errorMsg.classList.add('show');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Bug Report';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Netlify configuration file
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Redirect rules
+[[redirects]]
+  from = "/bug-report"
+  to = "/bug-report.html"
+  status = 200
+
+# Environment variables are set in Netlify UI:
+# GITHUB_TOKEN - Personal access token with 'repo' scope
+# GITHUB_REPO - Your repository (e.g., "yourusername/insync")
